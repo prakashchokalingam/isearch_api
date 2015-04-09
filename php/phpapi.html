@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="js/jquery.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#load").hide();
+                $("textarea").click(function(){$("textarea").val("");});
+                $('#openwindow').click(function(){
+                   window.open("register.php","_blank","name=reg","height=500px,width=500px"); 
+                });
+            });
+        </script>
+        <style>code{color:green;}</style>
+    </head>
+    
+    <body>
+        <div style="position: fixed;border: 5px solid #E5E5E5;left:0%;width:15%;height:100%;text-align: left;">
+            <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#register"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Register</button></a>
+            </div>
+             <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#download"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Download SDK</button></a>
+            </div>
+             <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#authentication"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Authentication</button></a>
+            </div>
+              <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#search"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Search</button></a>
+            </div>
+             <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#upload_api"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Upload</button></a>
+            </div>
+             <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#delete"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Delete</button></a>
+            </div>
+            <div style="border-bottom: 2px solid #E5E5E5;text-align: left;">
+                <a href="#discussion"><button class="btn btn-default btn-lg" style="color:green;width:100%;text-align: left;">Discussion</button></a>
+            </div>
+        </div>
+       
+        <div style="position: absolute;left:20%;width:80%;height:100%;overflow-x:hidden;">
+           <h3 id="register">Register :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" ><center>
+                    In order get access of our database you need to register in our developer console !<br>
+                    <pre><code>
+                    (i)  Provide essential details which are asked !
+
+        (ii) Save the auth_id and secret_id !
+
+  (iii) Keep  the secret_id safe!</code></pre></center>
+
+                   <br>
+                   <input type="button" id="openwindow"  class="btn btn-danger btn-lg pull-right" value="Click to join developer console >>">
+                </div>
+            <h3 id="download">Download :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" ><center>
+                    You have choosen to download the PHP (v5 ) SDK<br>
+                    Above php 5 is must :
+                    <pre><code>
+            <a href="http://php.net/downloads.php">php.net/downloads.php</a>
+                </code></pre>
+                    <br>
+                <img src="images/github.png" style="width:100px;height:100px;" class="img-responsive"> 
+                </center>
+                   <br>
+                   <button class="btn btn-danger btn-lg pull-right" > Download from github >></button>
+                </div>
+              <h3 id="authentication">Authentication :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" >
+                Need auth_id and secret id to get <b>auth_token</b><br>
+                <h4>Input codes :</h4><center><pre><code>
+  &lt;?php
+       include 'isearch.php';<br>
+   // declare the auth_id and secret_id varible 
+    // and call the function
+     $json=authenticate($auth_id,$secret_id);
+   //output will be return as json
+    ?&gt;
+         </code></pre></center>
+                <h4>Output</h4>
+                if success :
+                <center><pre><code>{"auth_token":"xxxxxxxxxxxxxxx"}</code></pre></center>
+                    else
+            <center><pre><code>{"error":"Check your input parameters !"}</code></pre></center>
+                </div>
+              <h3 id="search">Search :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" >
+                <h4>Search by keyword :</h4>
+                Input codes : 
+                <center><pre><code>
+  &lt;?php
+       include 'isearch.php';<br>
+             $type="keyword";
+             $limit=5;
+            $json=search($auth_token,$keyword,$type,$limit);
+
+     //auth_token id  which gained by authentication
+
+   // type is keyword for keyword search
+ //keyword user keyword
+         //limit number of images  required,default 10 images
+  ?&gt;</code></pre></center>
+                Output:
+                <center><pre><code>[{"imagepath":"feeds\/16d5fa6254b0cf24857e4.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cf48e7aa0.jpg"},{"imagepath":"feeds\/16d5fa6254b0cf6a005ae.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cf8521683.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cfa5a1a8e.jpg"}]</code></pre></center>
+            <h4>Search by Image :</h4>
+               Input codes : 
+                <center><pre><code>
+ &lt;?php
+       include 'isearch.php';<br><br>
+             $type="keyword";
+             $limit=5;
+              $path="feeds\16d5fa6254b0cf24857e4.jpg";
+            $json=search($auth_token,$path,type,$limit);
+
+     //auth_token id  which gained by authentication
+
+   // type is keyword for keyword search
+ //path is the location of image file
+         //limit number of images  required,default 10 images
+  ?&gt;</code></pre></center>
+               Output:
+                <center><pre><code>[{"imagepath":"feeds\/16d5fa6254b0cf24857e4.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cf48e7aa0.jpg"},{"imagepath":"feeds\/16d5fa6254b0cf6a005ae.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cf8521683.jpg"},
+{"imagepath":"feeds\/16d5fa6254b0cfa5a1a8e.jpg"}]</code></pre></center>
+            </div>
+               <h3 id="upload_api">Upload :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" >
+                 <center><pre><code>
+  &lt;?php
+       include 'isearch.php';<br>
+        upload($appid,$auth_token,$imagepath,$category,$tags)
+    // app id your app id
+   //auth_token recieved token
+   //imagepath path of the image to be uploaded
+   //category of image belongs to !
+  // tags of image Must be an array ! (min 3-max 7)
+?&gt;</code></pre></center>
+                <h3>Output : </h3>
+                <center><pre><code>{"imagepath":"feeds\/16d5fa6254b0cf24857e4.jpg"}</code></pre></center>
+            </div>
+                 <h3 id="delete">Delete :</h3>
+            <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;" >
+                 <center><pre><code>
+  &lt;?php
+       include 'isearch.php';<br>
+        delete($appid,$auth_token,$imagepath)
+    // app id your app id
+   //auth_token recieved token
+   //imagepath path of the image to be uploaded
+ 
+?&gt;</code></pre></center>
+                <h3>Output : </h3>
+                if yes
+                <center><pre><code>{"status":"deleted !"}</code></pre></center>
+                else
+                <center><pre><code>{"status":"failed !"}</code></pre></center>
+            </div>
+                 <h3 id="discussion">Discussion :</h3>
+                 <div style="margin-top:5%;width:60%;background:#E5E5E5;border-radius:10px;">
+                     <textarea rows="5" class="form-control" cols="40">Share queries and doubts here we will help you !</textarea>
+                     <button class="btn btn-default pull-right">Send</button>
+                 </div>
+                 <hr>
+        </div>
+        
+    </body>
+</html>
